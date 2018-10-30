@@ -1,6 +1,12 @@
 const random = require('./../random');
 
-module.exports = (TaskModel, n) => {
+module.exports = (serviceLocator) => {
+
+	const generateConfig = serviceLocator.get('generateConfig');
+	const n = generateConfig.tasks;
+	const modelCreator = serviceLocator.get('modelCreator');
+	const taskSchema = serviceLocator.get('TaskSchema');
+	const TaskModel = modelCreator.create('Task', taskSchema);
 
 	return {
 		generate: () => {

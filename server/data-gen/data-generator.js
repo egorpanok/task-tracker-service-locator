@@ -1,22 +1,14 @@
-const TaskSchema	= require('../data-access/schemas/task');
+module.exports = (serviceLocator) => {
 
-// Factories
-const modelFactory  		= require('../data-access/model');
-const taskGeneratorFactory  = require('./task-generator');
-const taskDropperFactory 	= require('./task-dropper');
-
-module.exports = (connection, generateConfig) => {
-	// Instances
-	const Task				= modelFactory(connection, 'Task', TaskSchema);
-	const tasksGenerator	= taskGeneratorFactory(Task, generateConfig.tasks);
-	const taskDropper 		= taskDropperFactory(Task);
+	const taskGenerator = serviceLocator.get('taskGenerator');
+	const taskDropper = serviceLocator.get('taskDropper');
 
 	return {
 		generate: () => {
 			// Drop tasks
 			taskDropper.drop().then(() => {
 				// Generate new tasks
-				return tasksGenerator.generate();
+				return taskGenerator.generate();
 			}).then((tasks) => {
 
 				for (let i = 0; i < tasks.length; i++) {
