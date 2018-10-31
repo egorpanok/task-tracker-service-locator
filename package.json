@@ -1,5 +1,5 @@
 {
-	"name": "task-tracker-dependency-injection",
+	"name": "task-tracker-service-locator",
 	"version": "1.0.0",
 	"description": "Task tracker app showing service locator (version of Dependency Injection pattern)",
 	"main": "server/app.js",
